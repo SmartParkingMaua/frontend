@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta charset="UTF-8">
+	<title>Smart Parking</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/fontawesome/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="css/animate.css" />
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<!-- começo navbar -->
+	<nav class="navbar navbar-expand-lg bg-maua text-white">
+	  <div class="col-12 mx-auto p-0 d-flex">	  
+	  <a class="navbar-brand text-white" href="#">Smart Parking</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mx-auto">
+	      <li class="nav-item">
+	        <a class="nav-link mr-3 text-white h5 active" href="index.html"><i class="fas fa-circle mr-1 flash animated infinite animated_lento"></i>Ao vivo</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link text-white h5" href="historico.html">Histórico</a>
+	      </li>
+	    </ul>
+	    <div class="mt-2 mt-lg-0">
+			<a class="h5 mr-3" href="#">Login<i class="fas fa-user ml-2"></i></a>
+			<a class="h5" href="#">Registrar<i class="fas fa-user-plus ml-2"></i></a>
+		</div>
+	  </div>
+	  </div>
+	</nav>
+	<!-- fim nav bar -->
+
+	<!-- começo container geral -->
+	<div class="container-fluid h-full d-flex">
+		<!-- comeco ao vivo -->
+		<div class="row my-auto">
+			<div class="col-12 mx-auto py-4">
+				<div class="row">
+					<div class="col-9">
+						<div class="row">
+							<div class="col-12 d-flex justify-content-start mb-2">
+								<button class="mr-2 btn btn-outline-maua" id="portao1">Portão 1</button>
+								<button class="btn btn-outline-maua" id="portao2">Portão 2</button>
+							</div>
+							<div class="col-12">
+								<img class="img-fluid" src="http://via.placeholder.com/1500x800">
+							</div>
+						</div>
+					</div>
+					<div class="col-3 text-center d-flex align-content-center">
+						<div class="my-auto">
+							<div class="row">
+								<div class="col-12">
+									<h3 class="display-5">Total de carros</h3>		
+								</div>
+								<div class="col-12">
+									<h4 class="d-inline-block h4">Entrada:</h4>
+									<span id="entrada">123456</span>
+								</div>
+								<div class="col-12">
+									<h4 class="d-inline-block h4">Saída:</h4>
+									<span id="saida">534567</span>	
+								</div>
+							</div>
+							<hr class="my-4">
+							<div class="row">
+								<div class="col-12">
+									<h3 class="display-5">Disponibilidade</h3>	
+								</div>
+								<div class="col-12 mt-2">
+									<img class="img-fluid rounded-circle" src="http://via.placeholder.com/300x300">
+								</div>
+							</div>
+						</div>
+					</div>				
+				</div>		
+			</div>			
+		</div>
+		<!-- fim ao vivo -->
+
+	</div>
+	<!-- fim container geral -->
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
