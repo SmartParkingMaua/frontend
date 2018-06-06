@@ -29,7 +29,7 @@ Exemplo de Body:
 }
 ```
 
-*PUT*: Exemplo de URL com id do objeto: ``http://localhost:4000/api/ninjas/5b121cbc3c2c571fc84485a1``
+*PUT*: Exemplo de URL com ID do objeto do DB: ``http://localhost:4000/api/ninjas/5b121cbc3c2c571fc84485a1``
 
 Exemplo de Body:
 ```
@@ -38,4 +38,4 @@ Exemplo de Body:
 }
 ```
 
-*DELETE*: Exemplo de URL com id do objeto: ``http://localhost:4000/api/ninjas/5b0d7c88a3ef184928ff09fb``
+*DELETE*: Exemplo de URL com ID do objeto do DB: ``http://localhost:4000/api/ninjas/5b0d7c88a3ef184928ff09fb``
