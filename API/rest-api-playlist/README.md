@@ -12,14 +12,14 @@ Depois da instalação das dependências, rode o seguinte comando para iniciar a
 node index.js
 ```
 
-Para acessa-lá, entre em: ``localhost:4000``
+Para acessa-lá, entre em: ``http://localhost:4000``
 
 ### Comandos no Postman:
-*GET*: ``localhost:4000/api/ninjas?lng=-80&lat=25`` (coordenadas)
+*GET*: Exemplo de URL com coordenadas: ``http://localhost:4000/api/ninjas?lng=-80&lat=25``
 
-*POST*: ``localhost:4000/api/ninjas``
+*POST*: Exemplo de URL:``http://localhost:4000/api/ninjas``
 
-Body:
+Exemplo de Body:
 ```
 {
     "name": "Mariana",
@@ -29,13 +29,13 @@ Body:
 }
 ```
 
-*PUT*: ``localhost:4000/api/ninjas/5b121cbc3c2c571fc84485a1`` (id do objeto)
+*PUT*: Exemplo de URL com id do objeto: ``http://localhost:4000/api/ninjas/5b121cbc3c2c571fc84485a1``
 
-Body:
+Exemplo de Body:
 ```
 {
     "name": "Maria"
 }
 ```
 
-*DELETE*: ``localhost:4000/api/ninjas/5b0d7c88a3ef184928ff09fb`` (id do objeto)
+*DELETE*: Exemplo de URL com id do objeto: ``http://localhost:4000/api/ninjas/5b0d7c88a3ef184928ff09fb``
