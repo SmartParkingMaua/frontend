@@ -18,6 +18,7 @@ Para acessa-lá, entre em: ``localhost:4000``
 *GET*: ``localhost:4000/api/ninjas?lng=-80&lat=25`` (coordenadas)
 
 *POST*: ``localhost:4000/api/ninjas``
+
 Body:
 ```
 {
@@ -28,7 +29,8 @@ Body:
 }
 ```
 
-*PUT*: localhost:4000/api/ninjas/5b121cbc3c2c571fc84485a1 (id do obj)
+*PUT*: ``localhost:4000/api/ninjas/5b121cbc3c2c571fc84485a1`` (id do objeto)
+
 Body:
 ```
 {
@@ -36,4 +38,4 @@ Body:
 }
 ```
 
-*DELETE*: localhost:4000/api/ninjas/5b0d7c88a3ef184928ff09fb (id do obj)
+*DELETE*: ``localhost:4000/api/ninjas/5b0d7c88a3ef184928ff09fb`` (id do objeto)
