@@ -1,13 +1,13 @@
 ## Aplicação
 ### Setup
-**Requerimentos**: Possuir NodeJS/NPM e MongoDB instalados na máquina. Também faz-se necessário ter o Postman instalado para poder testar a API com outros verbos HTTP que não seja o GET. Caso queira uma interface gráfica com o MongoDB, instalar o Robo3T.
+**Requerimentos**: Possuir Node.js/npm e MongoDB instalados na máquina. Também faz-se necessário ter o Postman instalado para poder testar a API com outros verbos HTTP que não seja o GET. Caso queira uma interface gráfica para o MongoDB, instalar o Robo3T.
 
 Dentro da pasta onde estiver o package.json, executar o seguinte comando:
 ```
 npm install
 ```
 
-Depois da instação das dependencias, rode o seguinte comando para iniciar a aplicação:
+Depois da instalação das dependências, rode o seguinte comando para iniciar a aplicação:
 ```
 node index.js
 ```
