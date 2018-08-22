@@ -19,7 +19,7 @@
 	<!-- Fim Bootstrap -->
 
 	<!-- Novo Bootstrap -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -102,6 +102,63 @@
 		});
 		google.charts.setOnLoadCallback(drawChart);
 
+		function refreshLineChart(chart, options) {
+			
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Horário');
+			data.addColumn('number', 'Portão 1');
+			data.addColumn('number', 'Portão 2');
+
+			var currentdate = new Date();
+			var curHour = currentdate.getHours();
+			var curMin = currentdate.getMinutes();
+			console.log(curHour);
+			var buffer = [];
+			var j = 0;
+			for (var i = curHour - 12; i <= curHour; i++) {
+				if (i <= 0) {
+					i += 24;
+					buffer[j] = i.toString() + "h";
+					i -= 24;
+					j++;
+				} else {
+					buffer[j] = i.toString() + "h";
+					j++;
+				}
+			}
+
+			data.addRows([
+				[buffer[0], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[1], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[2], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[3], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[4], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[5], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[6], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[7], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[8], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[9], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[10], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[11], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)],
+				[buffer[12], Math.floor(Math.random() * 250), Math.floor(Math.random() * 450)]
+			]);
+
+			chart.draw(data, google.charts.Line.convertOptions(options));
+		}
+
+		function refreshPieChart(chart, options) {
+			var vagasOcu = Math.floor(Math.random() * 90) + Math.floor(Math.random() * 70);
+			var vagasDispo = 300 - vagasOcu;
+			
+			var data = new google.visualization.arrayToDataTable([
+				['Estado', 'Número de Carros'],
+				['Disponíveis', vagasDispo], 
+				['Ocupadas', vagasOcu]
+			]);
+
+			chart.draw(data, options);
+		}
+
 		function drawChart() {
 
 			var data = new google.visualization.DataTable();
@@ -139,6 +196,7 @@
 					j++;
 				}
 			}
+
 			data.addRows([
 				[buffer[0], 37, 80],
 				[buffer[1], 30, 69],
@@ -175,6 +233,10 @@
 
 			chart.draw(data, google.charts.Line.convertOptions(options));
 
+			setInterval(function() {
+				refreshLineChart(chart, options);
+			}, 10000);
+
 			// Grafico 2
 			google.charts.load("current", {
 				packages: ["corechart"]
@@ -185,7 +247,7 @@
 				// Supondo que o número total de vagas existentes seja 300 e (89 + 68) sejam a soma dos fluxos dos portões na ultima hora 
 				var vagasDispo = 300 - (89 + 68);
 				var vagasOcu = 89 + 68;
-				var data = google.visualization.arrayToDataTable([
+				var data = new google.visualization.arrayToDataTable([
 					['Estado', 'Número de Carros'],
 					['Disponíveis', vagasDispo], 
 					['Ocupadas', vagasOcu]
@@ -198,6 +260,10 @@
 
 				var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
 				chart.draw(data, options);
+
+				setInterval(function() {
+					refreshPieChart(chart, options);
+				}, 10000);
 			}
 		}
 	</script>
