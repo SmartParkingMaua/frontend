@@ -6,7 +6,7 @@
 
 Dentro da pasta onde estiver o package.json, executar o seguinte comando:
 ```console
-http://localhost:6419/npm install
+npm install
 ```
 
 Depois da instalação das dependências, rode o seguinte comando para iniciar a aplicação:
@@ -23,7 +23,7 @@ Para acessa-lá, entre em: ``http://localhost:4000``
 *POST*: Exemplo de URL: ``http://localhost:4000/api/ninjas``
 
 Exemplo de Body:
-```console
+```json
 {
     "name": "Mariana",
     "rank": "black belt",
@@ -35,7 +35,7 @@ Exemplo de Body:
 *PUT*: Exemplo de URL com ID do objeto do DB: ``http://localhost:4000/api/ninjas/5b121cbc3c2c571fc84485a1``
 
 Exemplo de Body:
-```console
+```json
 {
     "name": "Maria"
 }
