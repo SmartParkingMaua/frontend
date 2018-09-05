@@ -1,2 +1,2 @@
-API/rest-api-playlist/node_modules
-API/rest-api-playlist/package-lock.json
+**/node_modules
+**/package-lock.json
