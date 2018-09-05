@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta charset="UTF-8">
+	<title>Smart Parking</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/fontawesome/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<!-- começo navbar -->
+	<nav class="navbar navbar-expand-lg bg-maua-dark text-white">
+	  <div class="col-12 mx-auto p-0 d-flex">	  
+	  <a class="navbar-brand text-white" href="#">Smart Parking</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mx-auto">
+	      <li class="nav-item">
+	        <a class="nav-link mr-3 text-white h5" href="index.html">Ao vivo<span class="sr-only"></span></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link text-white h5 active" href="historico.html">Histórico</a>
+	      </li>
+	    </ul>
+	    <div class="mt-2 mt-lg-0">
+			<a class="h5 mr-3" href="#">Login<i class="fas fa-user ml-2"></i></a>
+			<a class="h5" href="#">Registrar<i class="fas fa-user-plus ml-2"></i></a>
+		</div>
+	  </div>
+	  </div>
+	</nav>
+	<!-- fim nav bar -->
+
+	<!-- começo container geral -->
+	<div class="container-fluid h-full d-flex">	
+		<!-- começo historico -->
+		<div class="row my-auto">
+			<div class="col-12 mx-auto py-4">
+				<div class="row">
+					<div class="col-12">
+						<div class="row">
+							<div class="col-12 d-flex mb-2">
+								<button type="button" class="mr-auto btn btn-outline-maua" id="portao2" data-toggle="modal" data-target="#exampleModalCenter">Filtro<i class="ml-2 fas fa-clock"></i></button>
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLongTitle">Filtro do Gráfico</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												  <span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+											<!-- corpo modal -->
+												<p>Data de início: <input type="text" id="calendario"/></p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-maua" data-dismiss="modal">Fechar</button>
+												<button type="button" class="btn btn-primary bg-maua-dark border-0">Salvar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button class="mr-2 btn btn-outline-maua" id="portao1">Portão 1</button>
+								<button class="btn btn-outline-maua" id="portao2">Portão 2</button>
+							</div>
+							<div class="col-12">
+								<img class="img-fluid" src="http://via.placeholder.com/2000x800">
+							</div>
+						</div>
+					</div>					
+				</div>		
+			</div>			
+		</div>
+		<!-- fim historico -->
+
+	</div>
+	<!-- fim container geral -->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+	$(function() {
+	    $( "#calendario" ).datepicker({
+	    	showOn: "both",
+	        buttonImage: "calendario.png",
+	        buttonImageOnly: true,
+	        dateFormat: 'dd/mm/yy',
+	        changeMonth: true,
+        	changeYear: true,
+        	showOtherMonths: true,
+        	selectOtherMonths: true,
+        	dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+	        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	        minDate: new Date(2018, 1 - 1, 1),
+	    });
+	});
+	</script>
+	<link rel="stylesheet" href="css/calendar.css">
+</body>
+</html>
