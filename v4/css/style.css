@@ -45,3 +45,6 @@ a:hover{
 	border-bottom: .5px solid #eda407;
 	border-width: 50%;
 }
+#calendario{
+	padding-left: .75rem!important;
+}
