@@ -20,7 +20,7 @@ Após instalar as dependências, inicie a API rodando:
 node index.js
 ```
 
-Em outro console, rode o seguinte comando de dentro da pasta **clientside** para iniciar a aplicação:
+Em outro console, rode o seguinte comando de dentro da pasta **rcX/clientside** (sendo X o número do rc desejado) para iniciar a aplicação:
 
 ```console
 python3 -m http.server 8000
