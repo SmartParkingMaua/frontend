@@ -1,4 +1,4 @@
-# Release Candidate 0
+# Release Candidates
 
 ## Requeriments
 
