@@ -4,7 +4,7 @@
 
 * node
 * npm
-* python3
+* python 2 ou 3
 
 ### Running the application
 
@@ -20,8 +20,14 @@ Após instalar as dependências, inicie a API rodando:
 node index.js
 ```
 
-Em outro console, rode o seguinte comando de dentro da pasta **rcX/clientside** (sendo X o número do rc desejado) para iniciar a aplicação:
+Em outro console, rode um dos seguintes comandos de dentro da pasta **rcX/clientside** (sendo X o número do rc desejado) para iniciar a aplicação:
 
+* Python 2:
+```console
+python -m SimpleHTTPServer 8000
+```
+
+* Python 3:
 ```console
 python3 -m http.server 8000
 ```
