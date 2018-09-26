@@ -1,2 +1,7 @@
 **/node_modules
 **/package-lock.json
+**/css/build/*
+!**/css/build/style.min.css
+**/js/build/*
+!**/js/build/aovivo.min.js
+!**/js/build/historico.min.js
