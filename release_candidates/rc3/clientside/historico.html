@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Smart Parking</title>
+	<link rel="stylesheet" type="text/css" href="css/libs/bootstrap-4.0.0.min.css">
+	<link rel="stylesheet" type="text/css" href="css/libs/fontawesome-5.3.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="css/libs/jquery.datetimepicker.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="css/src/style.css"> -->
+	<link rel="stylesheet" type="text/css" href="css/build/style.min.css">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+	<!-- começo navbar -->
+	<nav class="navbar navbar-expand bg-theme-dark-maua text-white">
+		<div class="col-12 mx-auto p-0 d-flex">	  
+			<a class="navbar-brand text-white" href="#">SPM</a>
+
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link mx-3 text-white h5" href="index.html">Ao vivo</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-white h5 btn-active" href="historico.html">Histórico</a>
+				</li>
+	    	</ul>
+	  	</div>
+	</nav>
+	<!-- fim nav bar -->
+
+	<!-- começo container geral -->
+	<div class="container-fluid d-flex h-view-full p-0 pt-2">	
+		<!-- começo historico -->
+		<div class="row m-auto">
+			<div class="col-12 d-flex">
+				<button type="button" class="col-sm-3 col-md-2 col-xl-1 btn btn-default-maua" id="hist-filter-menu" data-toggle="modal" data-target="#hist-filter-modal">Filtro<i class="ml-2 fas fa-clock"></i></button>
+
+				<!-- começo modal -->
+				<div class="modal fade" id="hist-filter-modal" tabindex="-1" role="dialog" aria-labelledby="hist-filter-modal-title" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<!-- começo header modal -->
+							<div class="modal-header">
+								<h5 class="modal-title" id="hist-filter-modal-title">Filtro do Gráfico</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<!-- fim header modal -->
+							<!-- começo corpo modal -->
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-6">
+										<label for="hist-filter-datetime" class="mb-1">Data de início:</label>
+										<div class="row">
+											<div class="col-10 pr-0">
+												<input type="text" id="hist-filter-datetime" class="form-control">
+											</div>
+											<div class="col-2 p-0">
+												<img id="hist-filter-datetime-icon" class="ml-2" src="imgs/calendar.png">
+											</div>
+										</div>
+									</div>
+									<div class="col-6">
+										<label for="hist-filter-period" class="mb-1">Período:</label>
+										<select class="form-control" id="hist-filter-period">
+											<option>Hora</option>
+											<option selected>Dia</option>
+											<option>Semana</option>
+											<option>Mês</option>
+											<option>Ano</option>
+										</select>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12 mt-2">
+										<label for="hist-filter-parking" class="mb-1">Estacionamento:</label>
+										<select class="form-control" id="hist-filter-parking"></select>
+									</div>
+								</div>
+							</div>
+							<!-- fim corpo modal -->
+							<!-- começo footer modal -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light-maua" data-dismiss="modal">Fechar</button>
+								<button type="button" class="btn btn-dark-maua" id="hist-filter-trigger">Filtrar</button>
+							<!-- fim footer modal -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- fim modal -->
+			</div>
+			<div class="col-12 p-0">
+				<div id="hist-chart-main" class="m-auto"></div>
+			</div>
+		</div>
+		<!-- fim historico -->
+	</div>
+	<!-- fim container geral -->
+
+
+	<script src="js/libs/jquery-3.3.1.min.js"></script>
+	<script src="js/libs/popper1.14.4.min.js"></script>
+	<script src="js/libs/bootstrap-4.0.0.min.js"></script>
+	<script src="js/libs/jquery.datetimepicker.full.min.js"></script>
+	<!-- <script type="text/javascript" src="js/src/datetimepicker.js" ></script> -->
+	<!-- <script type="text/javascript" src="js/src/requests.js"></script> -->
+	<!-- <script type="text/javascript" src="js/src/chartshistorico.js"></script> -->
+	<!-- <script type="text/javascript" src="js/src/historico.js"></script> -->
+	<script type="text/javascript" src="js/build/historico.min.js"></script>
+</body>
+</html>
