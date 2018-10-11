@@ -3,8 +3,7 @@
 var SPMRequest;
 
 (function() {
-    const _baseUrl = 'http://192.168.15.16:8080/v1/estacionamentos/';
-    // const _baseUrl = 'http://10.2.1.126:8080/v1/estacionamentos/';
+    const _baseUrl = 'http://localhost:8080/v1/estacionamentos/';
     
     let instance;
 
