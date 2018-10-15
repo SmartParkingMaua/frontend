@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Smart Parking</title>
+	<link rel="shortcut icon" type="image/png" href="imgs/favicon.png">
+	<link rel="stylesheet" type="text/css" href="css/libs/bootstrap-4.0.0.min.css">
+	<link rel="stylesheet" type="text/css" href="css/libs/fontawesome-5.3.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="css/src/style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="css/build/style.min.css"> -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+	<!-- começo navbar -->
+	<nav class="navbar navbar-expand bg-theme-dark-maua text-white">
+		<div class="container-fluid mx-5" id="all-nav-space">
+		  <div class="col-12 mx-auto p-0 d-flex">	  
+			  <a class="navbar-brand p-0 mr-5" href="index.html">
+			  	<h1>
+			  		<img src="imgs/logo-branco.png" id="all-logo" alt="Smart Parking Mauá logo">
+			  	</h1>
+			  </a>
+
+		    <ul class="navbar-nav d-block my-auto">
+		      <li class="nav-item d-inline-block mr-2">
+		        <a class="nav-link mx-3 text-white h5 btn-active" href="index.html">Ao vivo</a>
+		      </li>
+		      <li class="nav-item d-inline-block">
+		        <a class="nav-link text-white h5" href="historico.html">Histórico</a>
+		      </li>
+		    </ul>
+		  </div>
+		</div>
+	</nav>
+	<!-- fim nav bar -->
+
+	<!-- começo container geral -->
+	<div class="container-fluid d-flex h-view-full p-0 pt-2">
+		<!-- comeco ao vivo -->
+		<div class="row mx-auto mt-3">
+			<div class="col-sm-12 col-md-9">
+				<div class="row">
+					<div class="col-sm-12 d-flex justify-content-between">
+						<div class="col-sm-8 col-md-9 p-0">
+							<select class="col-8 col-sm-5 col-md-4 form-control" id="aovivo-filter-parking"></select>
+						</div>
+						<div class="col-sm-4 col-md-3 p-0 btn-group btn-group-toggle" data-toggle="buttons">
+							<label class="col-6 btn btn-default-maua active">
+								<input type="radio" name="aovivo-filter-period" id="aovivo-filter-period-day" autocomplete="off" checked> Dia
+							</label>
+							<label class="col-6 btn btn-default-maua">
+								<input type="radio" name="aovivo-filter-period" id="aovivo-filter-period-hour" autocomplete="off"> Hora
+							</label>
+						</div>
+					</div>
+					<div class="col-12 p-0">
+						<div id="aovivo-chart-main" class="m-auto"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-3 text-center m-auto">
+				<div class="row">
+					<div class="col-12">
+						<h3>Total de Carros</h3>		
+					</div>
+					<div class="col-12">
+						<h5 class="d-inline-block">Entrada:</h5>
+						<span id="aovivo-total-entrance"></span>
+					</div>
+					<div class="col-12">
+						<h5 class="d-inline-block">Saída:</h5>
+						<span id="aovivo-total-exit"></span>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-12">
+						<h3>Disponibilidade</h3>
+					</div>
+					<div class="col-12">
+						<div id="aovivo-chart-availability" class="m-auto"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- fim ao vivo -->
+	</div>
+	<!-- fim container geral -->
+
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+	<script src="js/libs/jquery-3.3.1.min.js"></script>
+	<script src="js/libs/popper1.14.4.min.js"></script>
+	<script src="js/libs/bootstrap-4.0.0.min.js"></script>
+	<script type="text/javascript" src="js/src/requests.js"></script>
+	<script type="text/javascript" src="js/src/chartsaovivo.js"></script>
+	<script type="text/javascript" src="js/src/aovivo.js"></script>
+	<!-- <script type="text/javascript" src="js/build/aovivo.min.js"></script> -->
+</body>
+</html>
