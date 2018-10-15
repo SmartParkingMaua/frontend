@@ -28,13 +28,13 @@
         parkingsList = parkingsData.estacionamentos;
 
         let parkingsNames = parkingsList.map(({name}) => name);
-        
+
         parkingsNames.forEach(name => {
             let optionElement = document.createElement('option');
             optionElement.text = name;
             parkingSelector.add(optionElement);
         });
-        
+
         // 2. Request data and set data request interval
         requestData(defaultPeriod, defaultParkingId, new Date().getTime());
 
@@ -96,7 +96,7 @@
 
         if (parkingId === -1)
             return alert("Estacionamento inválido!");
-        
+
         // 3. Request data
         let requestStatus = requestData(period, parkingId, new Date().getTime());
 
@@ -113,10 +113,10 @@
 
     function getParkingId(parkingName) {
         let parking = parkingsList.find(p => p.name === parkingName);
-    
+
         if (parking === undefined)
             return -1;
-        
+
         return parking.id;
     }
 

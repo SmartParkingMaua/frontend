@@ -23,7 +23,7 @@ const chart = (chartElement) => {
             chartOptions = {
                 colors: ['#004684'],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: 'decimal', textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' },
                 curveType: 'function',
                 pointSize: 7
@@ -37,7 +37,7 @@ const chart = (chartElement) => {
         drawDayChart: (carsData) => {
             // 1. Add axes legend
             let chartDataArray = [['Horário do dia', 'Fluxo']];
-            
+
             // 2. Add chart data
             for (let i = 5; i < carsData.entrada.length; i++) {
                 chartDataArray.push([(i+1)+'h',
@@ -51,7 +51,7 @@ const chart = (chartElement) => {
             chartOptions = {
                 colors: ['#004684'],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: 'decimal', textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' },
                 curveType: 'function',
                 pointSize: 7
@@ -76,9 +76,9 @@ const chart = (chartElement) => {
             // 2. Set chart options
             chartOptions = {
                 colors: ['#004684', '#eda407'],
-                chartArea: {top: '3%', width: '80%', height: '80%' },
+                chartArea: { top: '3%', width: '75%', height: '80%' },
                 pieHole: 0.25,
-                legend: { position: 'bottom', textStyle: { fontSize: 12, color: '#053061' } }
+                legend: { position: 'bottom', textStyle: { fontSize: 14, color: '#053061' } }
             };
 
             // 3. Draw chart

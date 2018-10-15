@@ -8,45 +8,43 @@
 	<link rel="shortcut icon" type="image/png" href="imgs/favicon.png">
 	<link rel="stylesheet" type="text/css" href="css/libs/bootstrap-4.0.0.min.css">
 	<link rel="stylesheet" type="text/css" href="css/libs/fontawesome-5.3.1/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="css/src/style.css">
-	<!-- <link rel="stylesheet" type="text/css" href="css/build/style.min.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="css/src/style.css"> -->
+	<link rel="stylesheet" type="text/css" href="css/build/style.min.css">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 	<!-- começo navbar -->
-	<nav class="navbar navbar-expand bg-theme-dark-maua text-white">
-		<div class="container-fluid mx-5" id="all-nav-space">
-		  <div class="col-12 mx-auto p-0 d-flex">	  
-			  <a class="navbar-brand p-0 mr-5" href="index.html">
-			  	<h1>
-			  		<img src="imgs/logo-branco.png" id="all-logo" alt="Smart Parking Mauá logo">
-			  	</h1>
-			  </a>
-
-		    <ul class="navbar-nav d-block my-auto">
-		      <li class="nav-item d-inline-block mr-2">
-		        <a class="nav-link mx-3 text-white h5 btn-active" href="index.html">Ao vivo</a>
-		      </li>
-		      <li class="nav-item d-inline-block">
-		        <a class="nav-link text-white h5" href="historico.html">Histórico</a>
-		      </li>
-		    </ul>
-		  </div>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark-maua text-white">
+		<a class="navbar-brand pb-2 mr-4" href="index.html">
+			<img src="imgs/logo-branco.png" id="all-nav-logo" alt="Logo Smart Parking Mauá">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#aovivo-toogle-menu" aria-controls="aovivo-toogle-menu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="aovivo-toogle-menu">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item mr-3">
+					<a class="nav-link text-white h5 btn-active" href="index.html">Ao vivo</a>
+				</li>
+				<li class="nav-item mr-3">
+					<a class="nav-link text-white h5" href="historico.html">Histórico</a>
+				</li>
+			</ul>
 		</div>
 	</nav>
 	<!-- fim nav bar -->
 
 	<!-- começo container geral -->
-	<div class="container-fluid d-flex h-view-full p-0 pt-2">
+	<div class="container-fluid d-flex h-view-full p-0">
 		<!-- comeco ao vivo -->
-		<div class="row mx-auto mt-3">
-			<div class="col-sm-12 col-md-9">
+		<div class="row mx-auto">
+			<div class="col-sm-12 col-lg-9 my-4">
 				<div class="row">
 					<div class="col-sm-12 d-flex justify-content-between">
 						<div class="col-sm-8 col-md-9 p-0">
-							<select class="col-8 col-sm-5 col-md-4 form-control" id="aovivo-filter-parking"></select>
+							<select class="col-8 col-sm-5 col-md-4 col-xl-3 form-control" id="aovivo-filter-parking"></select>
 						</div>
-						<div class="col-sm-4 col-md-3 p-0 btn-group btn-group-toggle" data-toggle="buttons">
+						<div class="col-sm-4 col-md-3 col-xl-3 p-0 btn-group btn-group-toggle" data-toggle="buttons">
 							<label class="col-6 btn btn-default-maua active">
 								<input type="radio" name="aovivo-filter-period" id="aovivo-filter-period-day" autocomplete="off" checked> Dia
 							</label>
@@ -60,10 +58,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-3 text-center m-auto">
+			<div class="col-sm-12 col-lg-3 text-center my-4 align-self-center">
 				<div class="row">
 					<div class="col-12">
-						<h3>Total de Carros</h3>		
+						<h3>Total de Carros</h3>
 					</div>
 					<div class="col-12">
 						<h5 class="d-inline-block">Entrada:</h5>
@@ -89,16 +87,13 @@
 	</div>
 	<!-- fim container geral -->
 
-	<script
-	  src="https://code.jquery.com/jquery-3.3.1.min.js"
-	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	  crossorigin="anonymous"></script>
+	
 	<script src="js/libs/jquery-3.3.1.min.js"></script>
 	<script src="js/libs/popper1.14.4.min.js"></script>
 	<script src="js/libs/bootstrap-4.0.0.min.js"></script>
-	<script type="text/javascript" src="js/src/requests.js"></script>
-	<script type="text/javascript" src="js/src/chartsaovivo.js"></script>
-	<script type="text/javascript" src="js/src/aovivo.js"></script>
-	<!-- <script type="text/javascript" src="js/build/aovivo.min.js"></script> -->
+	<!-- <script type="text/javascript" src="js/src/requests.js"></script> -->
+	<!-- <script type="text/javascript" src="js/src/chartsaovivo.js"></script> -->
+	<!-- <script type="text/javascript" src="js/src/aovivo.js"></script> -->
+	<script type="text/javascript" src="js/build/aovivo.min.js"></script>
 </body>
 </html>

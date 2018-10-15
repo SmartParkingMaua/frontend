@@ -6,19 +6,25 @@ ul li a:hover {
 	color: #eda407!important;
 	transition: color .3s;
 }
+.navbar-dark .navbar-toggler {
+    border-color: rgba(237, 164, 7, 0.5); /* #eda407 color in rgba format */
+}
 .form-control {
     color: #00293f;
     border: 1px solid #00293f;
 }
-.h-view-full {
-	height: calc(100vh - 75px);
+.form-control:disabled, .form-control[readonly] {
+    background-color: #ffffff;
+    opacity: 1;
 }
-.bg-theme-dark-maua {
+.h-view-full {
+    height: calc(100vh - 100px);
+}
+.bg-dark-maua {
 	background-color: #00293f;
 }
 .btn-active {
 	border-bottom: .5px solid #eda407;
-	border-width: 50%;
 }
 .btn-light-maua {
     color: #00293f;
@@ -50,36 +56,35 @@ ul li a:hover {
     height: 80vh;
 }
 @media (max-width: 767.98px) {
-    .nav-link{
-        font-size: 1rem!important;
+    #aovivo-chart-main {
+        width: 100vw;
+        height: 80vh;
+    }
+    #aovivo-chart-availability {
+        width: 93vw;
+        height: 40vh;
+    }
+}
+@media (max-width: 991.98px) {
+    #all-nav-logo {
+        height: 50px;
     }
     #aovivo-chart-main {
         width: 100vw;
         height: 80vh;
     }
-    #all-nav-space {
-        margin: 0!important;
-    }
-    #all-logo{
-        height: 50px;
-    }
     #aovivo-chart-availability {
         width: 93vw;
-        height: 35vh;
+        height: 45vh;
     }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     #aovivo-chart-main {
         width: 75vw;
         height: 80vh;
     }
     #aovivo-chart-availability {
         width: 23vw;
-        height: 40vh;
-    }
-}
-@media (min-width: 768px) and (max-width: 991.98px) {
-    h3 {
-        font-size: 1.5rem;
+        height: 45vh;
     }
 }

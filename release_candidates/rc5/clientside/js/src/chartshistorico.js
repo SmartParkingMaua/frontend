@@ -39,7 +39,7 @@ const chart = (chartElement) => {
     }
 
     return {
-        drawHourChart: (hourData) => {
+        drawHourChart: (timestamp) => (hourData) => {
             // 1. Add axes legend
             let chartDataArray = [['Minuto', 'Entrada', 'Saída', 'Fluxo']];
 
@@ -51,7 +51,7 @@ const chart = (chartElement) => {
             }
 
             chartDataTable = google.visualization.arrayToDataTable(chartDataArray);
-         
+
             // 3. Set chart options
             chartSeries = { 0: {}, 1: {}, 2: { type: 'line' } };
 
@@ -61,14 +61,21 @@ const chart = (chartElement) => {
                 chartColumns.push(i);
             }
 
+            let titleTime = new Date(timestamp).toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
             chartOptions = {
+                title: 'Hora - ' + titleTime.replace(/:/, 'h'),
+                titleTextStyle: { fontSize: 16, color: '#053061' },
                 seriesType: 'bars',
                 tooltip: { trigger: 'selection' },
                 aggregationTarget: 'category',
                 series: chartSeries,
-                colors: ['#97cfff', '#fcde9c','#004684'],
+                colors: ['#a7cfff', '#fcde9c','#004684'],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: 'decimal', textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' },
                 curveType: 'function',
                 pointSize: 7
@@ -81,7 +88,7 @@ const chart = (chartElement) => {
             setComboChartLegendSelection();
         },
 
-        drawDayChart: (dayData) => {
+        drawDayChart: (timestamp) => (dayData) => {
             // 1. Add axes legend
             let chartDataArray = [['Horário do dia', 'Entrada', 'Saída', 'Fluxo']];
 
@@ -93,7 +100,7 @@ const chart = (chartElement) => {
             }
 
             chartDataTable = google.visualization.arrayToDataTable(chartDataArray);
-            
+
             // 3. Set chart options
             chartSeries = { 0: {}, 1: {}, 2: { type: 'line' } };
 
@@ -103,14 +110,18 @@ const chart = (chartElement) => {
                 chartColumns.push(i);
             }
 
+            let titleDate = new Date(timestamp).toLocaleDateString('pt-BR');
+
             chartOptions = {
+                title: 'Dia - ' + titleDate,
+                titleTextStyle: { fontSize: 16, color: '#053061' },
                 seriesType: 'bars',
                 tooltip: { trigger: 'selection' },
                 aggregationTarget: 'category',
                 series: chartSeries,
-                colors: ['#97cfff', '#fcde9c','#004684'],
+                colors: ['#a7cfff', '#fcde9c','#004684'],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: 'decimal', textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' },
                 curveType: 'function',
                 pointSize: 7
@@ -128,25 +139,33 @@ const chart = (chartElement) => {
             let chartDataArray = [['Dias da semana', 'Entrada']];
 
             // 2. Add chart data
-            let date;
+            let legendDate;
+            let legendTimestamp = timestamp;
 
             for (let day in weekData) {
-                date = new Date(timestamp).toISOString().slice(5,10).split('-');
-                chartDataArray.push([date[1]+'/'+date[0],
-                    weekData[day].entrada.reduce((acc, val) => acc + val)]);
-                timestamp += 86400000; // Add one day to the current timestamp
+                legendDate = new Date(legendTimestamp).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit'
+                });
+                chartDataArray.push([legendDate, weekData[day].entrada.reduce((acc, val) => acc + val)]);
+                legendTimestamp += 86400000; // One day period timestamp
             }
 
             chartDataTable = google.visualization.arrayToDataTable(chartDataArray);
 
+            let titleDateFrom = new Date(timestamp).toLocaleDateString('pt-BR');
+            let titleDateTo = new Date(timestamp + 518400000 /* 6 days period timestamp */).toLocaleDateString('pt-BR');
+
             // 3. Set chart options
             chartOptions = {
+                title: 'Semana - ' + titleDateFrom + ' à ' + titleDateTo,
+                titleTextStyle: { fontSize: 16, color: '#053061' },
                 colors: ['#004684'],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: 'decimal', textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { minValue: 0, format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' }
             };
-            
+
             // 4. Draw chart
             chart = new google.visualization.ColumnChart(chartElement);
             chart.draw(chartDataTable, chartOptions);
@@ -159,14 +178,18 @@ const chart = (chartElement) => {
             // 2. Add chart data
             let i = 0;
             let date;
+            let legendTimestamp = timestamp;
 
             for (let week in monthData) {
                 for (let day in monthData[week]) {
                     if (i%7 === 0) {
-                        date = new Date(timestamp).toISOString().slice(5,10).split('-');
-                        chartDataArray.push([date[1]+'/'+date[0],
+                        date = new Date(legendTimestamp).toLocaleDateString('pt-BR', {
+                            day: '2-digit',
+                            month: '2-digit'
+                        });
+                        chartDataArray.push([date,
                             monthData[week][day].entrada.reduce((acc, val) => acc + val)]);
-                        timestamp += 604800000; // Add one week to the current timestamp
+                            legendTimestamp += 604800000; // One week period timestamp
                     }
                     else {
                         chartDataArray.push([day.slice(0,1).toUpperCase(),
@@ -179,20 +202,25 @@ const chart = (chartElement) => {
 
             chartDataTable = google.visualization.arrayToDataTable(chartDataArray);
 
+            let titleDateFrom = new Date(timestamp).toLocaleDateString('pt-BR');
+            let titleDateTo = new Date(timestamp + 2592000000 /* 30 days period timestamp */).toLocaleDateString('pt-BR');
+
             // 3. Set chart options
             chartOptions = {
+                title: 'Mês - ' + titleDateFrom + ' à ' + titleDateTo,
+                titleTextStyle: { fontSize: 16, color: '#053061' },
                 colors: ['#004684'],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: 'decimal', textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { minValue: 0, format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' }
             };
-            
+
             // 4. Draw chart
             chart = new google.visualization.ColumnChart(chartElement);
             chart.draw(chartDataTable, chartOptions);
         },
 
-        drawYearChart: (yearData) => {
+        drawYearChart: (timestamp) => (yearData) => {
             // 1. Add axes legend
             // let chartDataArray = [['Meses do ano', 'Entrada']];
 
@@ -202,7 +230,7 @@ const chart = (chartElement) => {
             // }
 
             // chartDataTable = google.visualization.arrayToDataTable(chartDataArray);
-            
+
             chartDataTable = new google.visualization.arrayToDataTable([
                 ['Meses do ano', 'Entrada'],
                 ['Jan',  3000],
@@ -220,10 +248,15 @@ const chart = (chartElement) => {
             ]);
 
             // 3. Set chart options
+            let titleDateFrom = new Date(timestamp).toLocaleDateString('pt-BR');
+            let titleDateTo = new Date(timestamp + 31536000000 /* 365 days period timestamp */).toLocaleDateString('pt-BR');
+
             chartOptions = {
+                title: 'Ano - ' + titleDateFrom + ' à ' + titleDateTo,
+                titleTextStyle: { fontSize: 16, color: '#053061' },
                 colors: ['#004684'],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: 'decimal', textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' },
                 curveType: 'function',
                 pointSize: 7

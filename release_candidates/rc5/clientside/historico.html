@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Smart Parking</title>
 	<link rel="shortcut icon" type="image/png" href="imgs/favicon.png">
 	<link rel="stylesheet" type="text/css" href="css/libs/bootstrap-4.0.0.min.css">
@@ -15,35 +15,32 @@
 </head>
 <body>
 	<!-- começo navbar -->
-	<nav class="navbar navbar-expand bg-theme-dark-maua text-white">
-		<div class="container-fluid mx-5" id="all-nav-space">
-		  <div class="col-12 mx-auto p-0 d-flex">	  
-			  <a class="navbar-brand p-0 mr-5" href="index.html">
-			  	<h1>
-			  		<img src="imgs/logo-branco.png" id="all-logo" alt="Smart Parking Mauá logo">
-			  	</h1>
-			  </a>
-
-		    <ul class="navbar-nav d-block my-auto">
-		      <li class="nav-item d-inline-block mr-2">
-		        <a class="nav-link mx-3 text-white h5" href="index.html">Ao vivo</a>
-		      </li>
-		      <li class="nav-item d-inline-block">
-		        <a class="nav-link text-white h5 btn-active" href="historico.html">Histórico</a>
-		      </li>
-		    </ul>
-		  </div>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark-maua text-white">
+		<a class="navbar-brand pb-2 mr-4" href="index.html">
+			<img src="imgs/logo-branco.png" id="all-nav-logo" alt="Logo Smart Parking Mauá">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hist-toogle-menu" aria-controls="hist-toogle-menu" aria-expanded="false" aria-label="Toggle navigation bar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="hist-toogle-menu">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item mr-3">
+					<a class="nav-link text-white h5" href="index.html">Ao vivo</a>
+				</li>
+				<li class="nav-item mr-3">
+					<a class="nav-link text-white h5 btn-active" href="historico.html">Histórico</a>
+				</li>
+			</ul>
 		</div>
 	</nav>
 	<!-- fim nav bar -->
 
 	<!-- começo container geral -->
-	<div class="container-fluid d-flex h-view-full p-0 pt-2">	
+	<div class="container-fluid d-flex h-view-full p-0">
 		<!-- começo historico -->
-		<div class="row mx-auto">
+		<div class="row mx-auto my-4">
 			<div class="col-12 d-flex">
-				<button type="button" class="col-sm-3 col-md-2 col-xl-1 btn btn-default-maua my-auto" id="hist-filter-menu" data-toggle="modal" data-target="#hist-filter-modal">Filtro<i class="ml-2 fas fa-clock"></i></button>
-
+				<button type="button" class="col-sm-3 col-md-2 btn btn-default-maua" id="hist-filter-menu" data-toggle="modal" data-target="#hist-filter-modal">Filtro<i class="ml-2 fas fa-clock"></i></button>
 				<!-- começo modal -->
 				<div class="modal fade" id="hist-filter-modal" tabindex="-1" role="dialog" aria-labelledby="hist-filter-modal-title" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
@@ -63,7 +60,7 @@
 										<label for="hist-filter-datetime" class="mb-1">Data de início:</label>
 										<div class="row">
 											<div class="col-10 pr-0">
-												<input type="text" id="hist-filter-datetime" class="form-control">
+												<input type="text" id="hist-filter-datetime" class="form-control" readonly>
 											</div>
 											<div class="col-2 p-0">
 												<img id="hist-filter-datetime-icon" class="ml-2" src="imgs/calendar.png">
@@ -113,10 +110,10 @@
 	<script src="js/libs/popper1.14.4.min.js"></script>
 	<script src="js/libs/bootstrap-4.0.0.min.js"></script>
 	<script src="js/libs/jquery.datetimepicker.full.min.js"></script>
-	<script type="text/javascript" src="js/src/datetimepicker.js" ></script>
-	<script type="text/javascript" src="js/src/requests.js"></script>
-	<script type="text/javascript" src="js/src/chartshistorico.js"></script>
-	<script type="text/javascript" src="js/src/historico.js"></script>
-	<!-- <script type="text/javascript" src="js/build/historico.min.js"></script> -->
+	<!-- <script type="text/javascript" src="js/src/datetimepicker.js" ></script> -->
+	<!-- <script type="text/javascript" src="js/src/requests.js"></script> -->
+	<!-- <script type="text/javascript" src="js/src/chartshistorico.js"></script> -->
+	<!-- <script type="text/javascript" src="js/src/historico.js"></script> -->
+	<script type="text/javascript" src="js/build/historico.min.js"></script>
 </body>
 </html>

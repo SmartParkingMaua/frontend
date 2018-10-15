@@ -35,7 +35,7 @@
 
         // 2. Request data
         requestData(defaultPeriod, defaultParkingId, new Date().getTime());
-        
+
         // 3. Add events
         let filterTrigger = document.querySelector('#hist-filter-trigger');
         filterTrigger.addEventListener('click', configureRequest);
@@ -51,10 +51,10 @@
 
         switch (period.toUpperCase()) {
             case 'HORA':
-                request.getDataByHour(parkingId, timestamp, mainChart.drawHourChart);
+                request.getDataByHour(parkingId, timestamp, mainChart.drawHourChart(timestamp));
                 break;
             case 'DIA':
-                request.getDataByDay(parkingId, timestamp, mainChart.drawDayChart);
+                request.getDataByDay(parkingId, timestamp, mainChart.drawDayChart(timestamp));
                 break;
             case 'SEMANA':
                 request.getDataByWeek(parkingId, timestamp, mainChart.drawWeekChart(timestamp));
@@ -63,8 +63,8 @@
                 request.getDataByMonth(parkingId, timestamp, mainChart.drawMonthChart(timestamp));
                 break;
             case 'ANO':
-                // request.getDataByYear(parkingId, timestamp, mainChart.drawYearChart);
-                mainChart.drawYearChart(123);
+                // request.getDataByYear(parkingId, timestamp, mainChart.drawYearChart(timestamp));
+                mainChart.drawYearChart(timestamp)(123);
                 break;
             default:
                 status = false;
@@ -83,7 +83,7 @@
 
         // 2. Get datetime filter
         let datetimeString = convertDateToISOFormat(datetimeSelector.value);
-        
+
         if (!isDateValidISOFormat(datetimeString))
             return alert("Data inválida!");
 
@@ -100,10 +100,10 @@
 
     function getParkingId(parkingName) {
         let parking = parkingsList.find(p => p.name === parkingName);
-    
+
         if (parking === undefined)
             return -1;
-        
+
         return parking.id;
     }
 
@@ -111,21 +111,22 @@
         let datetime = dateString.split(' ');
         let date = datetime[0].split('/');
         let time = datetime[1];
-    
-        return date[2] + '-' + date[1] + '-' + date[0] + ' ' + time;
+
+        // Do not put Z at the end in order to keep the date related to the local timezone
+        return date[2] + '-' + date[1] + '-' + date[0] + 'T' + time + ':00.000';
     }
 
     function isDateValidISOFormat(dateString) {
-        let regEx = /^\d{4}-\d{2}-\d{2}\ \d{2}:\d{2}$/;
-    
+        let regEx = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}$/;
+
         if (!dateString.match(regEx))
             return false; // Invalid format
-    
+
         let date = new Date(dateString);
-    
+
         if (Number.isNaN(date.getTime()))
             return false; // Invalid date
-    
+
         return true;
         // return date.toISOString().slice(0,10) === dateString;
     }
