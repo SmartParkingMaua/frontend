@@ -1,7 +1,7 @@
 {
-  "name": "smart-parking-front",
+  "name": "smartparking_front",
   "version": "1.0.0",
-  "description": "",
+  "description": "SmartParking Front is a development environment for SmartParking frontend developers",
   "main": "index.js",
   "scripts": {
     "build": "npm run min-css && npm run build-js && npm run min-js-aovivo && npm run min-js-historico",
@@ -10,9 +10,16 @@
     "min-js-aovivo": "uglifyjs ./js/build/requests.js ./js/build/chartsaovivo.js ./js/build/aovivo.js -mco ./js/build/aovivo.min.js",
     "min-js-historico": "uglifyjs ./js/build/datetimepicker.js ./js/build/requests.js ./js/build/chartshistorico.js ./js/build/historico.js -mco ./js/build/historico.min.js"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmartParkingMaua/frontend.git"
+  },
+  "author": "Kaisen-san",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SmartParkingMaua/frontend/issues"
+  },
+  "homepage": "https://github.com/SmartParkingMaua/frontend#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",

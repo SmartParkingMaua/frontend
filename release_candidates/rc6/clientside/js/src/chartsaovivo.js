@@ -1,93 +1,106 @@
 'use strict';
 
-const chart = (chartElement) => {
+const chart = ( chartElement ) => {
+
     let chart;
     let chartDataTable = {};
     let chartOptions = {};
 
     return {
-        drawHourChart: (carsData) => {
+
+        drawHourChart: ( hourData ) => {
+
             // 1. Add axes legend
-            let chartDataArray = [['Minuto', 'Fluxo']];
+            let chartDataArray = [ [ 'Minuto', 'Fluxo' ] ];
 
             // 2. Add chart data
-            for (let i = 0; i < carsData.entrada.length; i++) {
-                chartDataArray.push([(5*(i+1))+'m',
-                    Math.floor(Math.random() * carsData.entrada[i])
-                    - Math.floor(Math.random() * carsData.saida[i])]);
+            for ( let i = 0; i < hourData.entrance.length; i++ ) {
+                chartDataArray.push( [ hourData.entrance[i].period,
+                    hourData.entrance[i].value - hourData.exit[i].value ] );
             }
 
-            chartDataTable = google.visualization.arrayToDataTable(chartDataArray);
+            chartDataTable = google.visualization.arrayToDataTable( chartDataArray );
 
             // 3. Set chart options
             chartOptions = {
-                colors: ['#004684'],
+                colors: [ '#004684' ],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { format: '#', gridline: { count: -1 },
+                    textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' },
                 curveType: 'function',
                 pointSize: 7
             };
 
             // 4. Draw chart
-            chart = new google.visualization.LineChart(chartElement);
-            chart.draw(chartDataTable, chartOptions);
+            chart = new google.visualization.LineChart( chartElement );
+            chart.draw( chartDataTable, chartOptions );
+
         },
 
-        drawDayChart: (carsData) => {
+        drawDayChart: ( dayData ) => {
+
             // 1. Add axes legend
-            let chartDataArray = [['Horário do dia', 'Fluxo']];
+            let chartDataArray = [ [ 'Horário do dia', 'Fluxo' ] ];
 
             // 2. Add chart data
-            for (let i = 5; i < carsData.entrada.length; i++) {
-                chartDataArray.push([(i+1)+'h',
-                    Math.floor(Math.random() * carsData.entrada[i])
-                    - Math.floor(Math.random() * carsData.saida[i])]);
+            for ( let i = 0; i < dayData.entrance.length; i++ ) {
+                chartDataArray.push( [ dayData.entrance[i].period,
+                    dayData.entrance[i].value - dayData.exit[i].value ] );
             }
 
-            chartDataTable = google.visualization.arrayToDataTable(chartDataArray);
+            chartDataTable = google.visualization.arrayToDataTable( chartDataArray );
 
             // 3. Set chart options
             chartOptions = {
-                colors: ['#004684'],
+                colors: [ '#004684' ],
                 hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: '#', gridline: { count: -1 }, textStyle: { fontSize: 14, color: '#053061' } },
+                vAxis: { format: '#', gridline: { count: -1 },
+                    textStyle: { fontSize: 14, color: '#053061' } },
                 chartArea: { width: '75%', height: '80%' },
                 curveType: 'function',
                 pointSize: 7
             };
 
             // 4. Draw chart
-            chart = new google.visualization.LineChart(chartElement);
-            chart.draw(chartDataTable, chartOptions);
+            chart = new google.visualization.LineChart( chartElement );
+            chart.draw( chartDataTable, chartOptions );
+
         },
 
-        drawAvailabilityChart: (lotsData) => {
+        drawAvailabilityChart: ( parkingId ) => ( parkingsData ) => {
+
             // 1. Add axes legend and lots data
-            let lotsAvailable = 300 - (89 + 68);
-            let lotsOccupied = 89 + 68;
+            let parking = parkingsData.parkings.find( ( { id } ) => id === parkingId );
+            let lotsOccupied = parking.lots.occupied;
+            let lotsAvailable = parking.lots.max - lotsOccupied;
 
             chartDataTable = new google.visualization.arrayToDataTable([
-                ['Estado', 'Número de Carros'],
-                ['Disponíveis', lotsAvailable], 
-                ['Ocupadas', lotsOccupied]
+                [ 'Estado', 'Número de Carros' ],
+                [ 'Disponíveis', lotsAvailable ], 
+                [ 'Ocupadas', lotsOccupied ]
             ]);
 
             // 2. Set chart options
             chartOptions = {
-                colors: ['#004684', '#eda407'],
+                colors: [ '#004684', '#eda407' ],
                 chartArea: { top: '3%', width: '75%', height: '80%' },
                 pieHole: 0.25,
                 legend: { position: 'bottom', textStyle: { fontSize: 14, color: '#053061' } }
             };
 
             // 3. Draw chart
-            chart = new google.visualization.PieChart(chartElement);
-            chart.draw(chartDataTable, chartOptions);
+            chart = new google.visualization.PieChart( chartElement );
+            chart.draw( chartDataTable, chartOptions );
+
         },
 
         redrawChart: () => {
-            chart.draw(chartDataTable, chartOptions);
+
+            chart.draw( chartDataTable, chartOptions );
+
         }
+
     }
+
 };
