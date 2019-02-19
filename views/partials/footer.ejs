@@ -1,0 +1,9 @@
+<script src="js/lib/jquery-3.3.1.min.js"></script>
+<script src="js/lib/popper1.14.4.min.js"></script>
+<script src="js/lib/bootstrap-4.0.0.min.js"></script>
+<% if( pageActive === 'live' ) { %>
+	<script type="text/javascript" src="js/live.min.js"></script>
+<% } else if( pageActive === 'history' ) { %>
+	<script src="js/lib/foundation-datepicker.min.js"></script>
+	<script type="text/javascript" src="js/history.min.js"></script>
+<% } %>
