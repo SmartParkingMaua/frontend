@@ -1,68 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt">
-<head>
-	<%- include( '../partials/head', { pageActive: 'live' } ) %>
-</head>
-<body>
-	<header>
-		<%- include( '../partials/header', { pageActive: 'live' } ) %>
-	</header>
+<html lang="pt-BR">
+  <head>
+    <%- include( '../partials/head', { pageActive: 'live' } ) %>
+  </head>
+  <body>
+    <header>
+      <%- include( '../partials/navbar', { pageActive: 'live' } ) %>
+    </header>
 
-	<div class="container-fluid d-flex h-view-full p-0">
-		<!-- comeco ao vivo -->
-		<div class="row mx-auto">
-			<div class="col-sm-12 col-lg-9 my-4">
-				<div class="row">
-					<div class="col-sm-12 d-flex justify-content-between">
-						<div class="col-sm-8 col-md-9 p-0">
-							<select class="col-8 col-sm-5 col-md-4 col-xl-3 offset-sm-1 form-control" id="live-filter-parking"></select>
-						</div>
-						<div class="col-sm-4 col-md-3 col-xl-3 p-0 btn-group btn-group-toggle" data-toggle="buttons">
-							<label class="col-6 btn btn-default-maua active">
-								<input type="radio" name="live-filter-period" id="live-filter-period-day" autocomplete="off" checked>
-								Dia
-							</label>
-							<label class="col-6 btn btn-default-maua">
-								<input type="radio" name="live-filter-period" id="live-filter-period-hour" autocomplete="off">
-								Hora
-							</label>
-						</div>
-					</div>
-					<div class="col-12 p-0">
-						<div id="live-chart-main" class="m-auto"></div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-12 col-lg-3 text-center my-4 align-self-center">
-				<div class="row">
-					<div class="col-12">
-						<h3>Total de Carros</h3>
-					</div>
-					<div class="col-12">
-						<h5 class="d-inline-block">Entrada:</h5>
-						<span id="live-total-entrance"></span>
-					</div>
-					<div class="col-12">
-						<h5 class="d-inline-block">Saída:</h5>
-						<span id="live-total-exit"></span>
-					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="col-12">
-						<h3>Disponibilidade</h3>
-					</div>
-					<div class="col-12">
-						<div id="live-chart-availability" class="m-auto"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- fim ao vivo -->
-	</div>
+    <main class="container-fluid d-flex h-view-full p-0">
+      <div class="row mx-auto">
+        <section class="col-sm-12 col-lg-9 my-4">
+          <div class="row">
+            <div class="col-sm-12 d-flex justify-content-between">
+              <div class="col-sm-8 col-md-9 p-0">
+                <select class="col-8 col-sm-5 col-md-4 col-xl-3 offset-sm-1 form-control" id="live-filter-parking"></select>
+              </div>
 
-	<footer>
-		<%- include( '../partials/footer', { pageActive: 'live' } ) %>
-	</footer>
-</body>
+              <div class="col-sm-4 col-md-3 col-xl-3 p-0 btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="col-6 btn btn-default-maua active">
+                  <input type="radio" name="live-filter-period" id="live-filter-period-day" autocomplete="off" checked>
+                  Dia
+                </label>
+                <label class="col-6 btn btn-default-maua">
+                  <input type="radio" name="live-filter-period" id="live-filter-period-hour" autocomplete="off">
+                  Hora
+                </label>
+              </div>
+            </div>
+            
+            <div class="col-12 p-0">
+              <div id="live-chart-main" class="m-auto"></div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="col-sm-12 col-lg-3 text-center my-4 align-self-center">
+          <div class="row">
+            <div class="col-12">
+              <h3>Total de Carros</h3>
+            </div>
+            <div class="col-12">
+              <h5 class="d-inline-block">Entrada:</h5>
+              <span id="live-total-entrance"></span>
+            </div>
+            <div class="col-12">
+              <h5 class="d-inline-block">Saída:</h5>
+              <span id="live-total-exit"></span>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row">
+            <div class="col-12">
+              <h3>Disponibilidade</h3>
+            </div>
+            <div class="col-12">
+              <div id="live-chart-availability" class="m-auto"></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <%- include( '../partials/scripts', { pageActive: 'live' } ) %>
+  </body>
 </html>
