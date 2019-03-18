@@ -2,151 +2,189 @@
 
 (() => {
 
-    const defaultParkingId = 0; // Campus
-    const defaultPeriod = 'Dia';
-    const request = new Request();
-    const mainChart = Chart( document.querySelector( '#hist-chart-main' ) );
-    const parkingSelector = document.querySelector( '#hist-filter-parking' );
-    const periodSelector = document.querySelector( '#hist-filter-period' );
-    const datetimeSelector = document.querySelector( '#hist-filter-datetime' );
+  const elements = {
+    parking: document.querySelector('#hist-filter-parking'),
+    period: document.querySelector('#hist-filter-period'),
+    datetime: document.querySelector('#hist-filter-datetime'),
+    mainChart: document.querySelector('#hist-chart-main'),
+    filterTrigger: document.querySelector('#hist-filter-trigger')
+  };
 
-    let parkingsList = [];
+  const defaults = {
+    parkingId: 0, // Campus
+    period: 'Dia'
+  };
 
-    // -----Starting point----- //
-    google.charts.load( 'current', { 'packages': ['corechart'], 'language': 'pt' } );
+  const charts = {
+    main: Chart( elements.mainChart )
+  };
 
-    google.charts.setOnLoadCallback( () => request.getParkings( initialSetup ) );
+  const request = new Request();
+  
+  let parkingsList = [];
 
-    const initialSetup = ( parkingsData ) => {
+  // -----Starting point----- //
+  google.charts.load(
+    'current',
+    {
+      'packages': ['corechart'],
+      'language': 'pt'
+    }
+  );
 
-        // 1. Fill parkings list and select field
-        parkingsList = parkingsData.parkings;
+  google.charts.setOnLoadCallback(() => request.getParkings( initialSetup ));
 
-        let parkingsNamesList = parkingsList.map( ( { name } ) => name );
+  const initialSetup = ({ parkings }) => {
+    let requestStatus;
 
-        parkingsNamesList.forEach( name => {
-            let optionElement = document.createElement( 'option' );
-            optionElement.text = name;
-            parkingSelector.add( optionElement );
-        });
+    parkingsList = parkings;
 
-        // 2. Request data
-        let timestamp = new Date().getTime();
-        let requestStatus = requestData( defaultPeriod, defaultParkingId, timestamp );
+    parkingsList.map(({ name }) => {
+      let optionElement = document.createElement('option');
 
-        if ( !requestStatus ) {
-            return alert( 'Período inválido!' );
-        }
+      optionElement.text = name;
+      elements.parking.add( optionElement );
+    });
 
-        // 3. Add events
-        let filterTrigger = document.querySelector( '#hist-filter-trigger' );
-        filterTrigger.addEventListener( 'click', configureRequest );
+    requestStatus = requestData(
+        defaults.period,
+        defaults.parkingId,
+        new Date().getTime()
+      );
 
-        // 4. Make the chart responsive
-        window.onresize = () => {
-            mainChart.redrawChart();
-        };
-
+    if ( !requestStatus ) {
+      return alert('Período inválido!');
     }
 
-    const requestData = ( period, parkingId, timestamp ) => {
+    elements.filterTrigger.addEventListener(
+      'click',
+      configureAndRequestData
+    );
 
-        let status = true;
+    // Make chart responsive
+    window.onresize = () => {
+      charts.main.redrawChart();
+    };
 
-        switch ( period.toUpperCase() ) {
-            case 'HORA':
-                request.getDataByHour( parkingId, timestamp, mainChart.drawHourChart );
-                break;
-            case 'DIA':
-                request.getDataByDay( parkingId, timestamp, mainChart.drawDayChart );
-                break;
-            case 'SEMANA':
-                request.getDataByWeek( parkingId, timestamp, mainChart.drawWeekChart );
-                break;
-            case 'MÊS':
-                request.getDataByMonth( parkingId, timestamp, mainChart.drawMonthChart );
-                break;
-            case 'ANO':
-                request.getDataByYear( parkingId, timestamp, mainChart.drawYearChart );
-                break;
-            default:
-                status = false;
-                break;
-        }
+  }
 
-        return status;
+  const requestData = ( period, parkingId, timestamp ) => {
+    let status = true;
 
+    switch ( period.toUpperCase() ) {
+      case 'HORA':
+        request.getDataByHour(
+          parkingId,
+          timestamp,
+          charts.main.drawHourChart
+        );
+        break;
+
+      case 'DIA':
+        request.getDataByDay(
+          parkingId,
+          timestamp,
+          charts.main.drawDayChart
+        );
+        break;
+
+      case 'SEMANA':
+        request.getDataByWeek(
+          parkingId,
+          timestamp,
+          charts.main.drawWeekChart
+        );
+        break;
+
+      case 'MÊS':
+        request.getDataByMonth(
+          parkingId,
+          timestamp,
+          charts.main.drawMonthChart
+        );
+        break;
+
+      case 'ANO':
+        request.getDataByYear(
+          parkingId,
+          timestamp,
+          charts.main.drawYearChart
+        );
+        break;
+
+      default:
+        status = false;
+        break;
     }
 
-    const configureRequest = ( event ) => {
+    return status;
+  }
 
-        // 1. Get parking filter
-        let parkingId = getParkingId( parkingSelector.value );
+  const configureAndRequestData = ( event ) => {
+    const parkingId = getParkingId( elements.parking.value );
+    const datetimeString = adjustDateFormat( elements.datetime.value );
+    let requestStatus;
 
-        if ( parkingId === -1 ) {
-            return alert( 'Estacionamento inválido!' );
-        }
-
-        // 2. Get datetime filter
-        let datetimeString = convertDateToISOFormat( datetimeSelector.value );
-
-        if ( !isDateValidISOFormat( datetimeString ) ) {
-            return alert( 'Data inválida!' );
-        }
-
-        // 3. Request data
-        let timestamp = new Date( datetimeString ).getTime();
-        let requestStatus = requestData( periodSelector.value, parkingId, timestamp );
-
-        if ( !requestStatus ) {
-            return alert( 'Período inválido!' );
-        }
-
-        // 4. Hide modal screen
-        $( '#hist-filter-modal' ).modal( 'hide' );
-
+    if ( parkingId === -1 ) {
+      return alert('Estacionamento inválido!');
     }
 
-    const getParkingId = ( parkingName ) => {
-
-        let parking = parkingsList.find( p => p.name === parkingName );
-
-        if ( parking === undefined ) {
-            return -1;
-        }
-
-        return parking.id;
-
+    if ( !isValidDateFormat( datetimeString ) ) {
+      return alert('Data inválida!');
     }
 
-    const convertDateToISOFormat = ( strDate ) => {
+    requestStatus = requestData(
+        elements.period.value,
+        parkingId,
+        new Date( datetimeString ).getTime()
+      );
 
-        let datetime = strDate.split( /\ / );
-        let date = datetime[0].split( /\// );
-        ( date.length === 2 ) ? date.unshift('01') : null;
-        let time = ( datetime[1] !== undefined ) ? datetime[1] : '';
-
-        return date[2] + '-' + date[1] + '-' + date[0] + ' ' + time; // YYYY-MM-DD HH:mm
-
+    if ( !requestStatus ) {
+      return alert('Período inválido!');
     }
 
-    const isDateValidISOFormat = ( strDate ) => {
+    // Close chart filter window if request went well
+    $('#hist-filter-modal').modal('hide');
+  }
 
-        let regEx = /^\d{4}-\d{2}-\d{2}\ (\d{2}:\d{2})?$/;
+  const getParkingId = ( parkingName ) => {
+    const parking = parkingsList.find( p => p.name === parkingName );
 
-        if ( !strDate.match( regEx ) ) {
-            return false; // Invalid format
-        }
-
-        let date = new Date( strDate );
-
-        if ( Number.isNaN( date.getTime() ) ) {
-            return false; // Invalid date
-        }
-
-        return true;
-        // return date.toISOString().slice(0,10) === dateString;
-
+    if ( parking === undefined ) {
+      return -1;
     }
+
+    return parking.id;
+  }
+
+  const adjustDateFormat = ( strDate ) => {
+    const datetime = strDate.split( /\ / );
+    const date = datetime[0].split( /\// );
+    const time = datetime[1] ? datetime[1] : '00:00';
+
+    // When month picker is selected it's necessary to add the day in the
+    // beginning of the array in order to get the date in the right format
+    ( date.length === 2 ) ? date.unshift('01') : null;
+
+    // YYYY-MM-DD HH:mm
+    return date[2] + '-' + date[1] + '-' + date[0] + ' ' + time;
+  }
+
+  const isValidDateFormat = ( strDate ) => {
+    const regEx = /^\d{4}-\d{2}-\d{2}\ \d{2}:\d{2}$/;
+    const date = new Date( strDate );
+
+    // Validate format
+    if ( !strDate.match( regEx ) ) {
+      return false;
+    }
+
+    // Validate timestamp
+    if ( Number.isNaN( date.getTime() ) ) {
+      return false;
+    }
+
+    return true;
+  }
 
 })();

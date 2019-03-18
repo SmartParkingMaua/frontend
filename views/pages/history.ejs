@@ -1,85 +1,77 @@
 <!DOCTYPE html>
-<html lang="pt">
-<head>
-	<%- include( '../partials/head', { pageActive: 'history' } ) %>
-</head>
-<body>
-	<header>
-		<%- include( '../partials/header', { pageActive: 'history' } ) %>
-	</header>
+<html lang="pt-BR">
+  <head>
+    <%- include( '../partials/head', { pageActive: 'history' } ) %>
+  </head>
+  <body>
+    <header>
+      <%- include( '../partials/navbar', { pageActive: 'history' } ) %>
+    </header>
 
-	<div class="container-fluid d-flex h-view-full p-0">
-		<!-- begin history -->
-		<div class="row mx-auto my-4">
-			<div class="col-12 d-flex">
-				<button type="button" class="col-sm-3 col-md-2 offset-sm-1 btn btn-default-maua" id="hist-filter-menu" data-toggle="modal" data-target="#hist-filter-modal">
-					Filtro<i class="ml-2 fas fa-clock"></i>
-				</button>
-				<!-- begin modal -->
-				<div class="modal fade" id="hist-filter-modal" tabindex="-1" role="dialog" aria-labelledby="hist-filter-modal-title" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<!-- begin modal header -->
-							<div class="modal-header">
-								<h5 class="modal-title" id="hist-filter-modal-title">Filtro do Gráfico</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<!-- end modal header -->
-							<!-- begin modal body -->
-							<div class="modal-body">
-								<div class="row justify-content-between">
-									<div class="col-5">
-										<label for="hist-filter-period" class="mb-1">Período:</label>
-										<select class="form-control" id="hist-filter-period">
-											<option>Hora</option>
-											<option selected>Dia</option>
-											<option>Semana</option>
-											<option>Mês</option>
-											<option>Ano</option>
-										</select>
-									</div>
-									<div class="col-7">
-										<label for="hist-filter-datetime" class="mb-1">Data de início:</label>
-										<div class="row align-items-center">
-											<div class="col-10 pr-0">
-												<input type="text" id="hist-filter-datetime" class="form-control" readonly>
-											</div>
-											<div class="col-2 pl-1">
-												<img id="hist-filter-datetime-icon" src="img/calendar.png">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-12 mt-2">
-										<label for="hist-filter-parking" class="mb-1">Estacionamento:</label>
-										<select class="form-control" id="hist-filter-parking"></select>
-									</div>
-								</div>
-							</div>
-							<!-- end modal body -->
-							<!-- begin modal footer -->
-							<div class="modal-footer">
-								<button type="button" class="btn btn-light-maua" data-dismiss="modal">Fechar</button>
-								<button type="button" class="btn btn-dark-maua" id="hist-filter-trigger">Filtrar</button>
-							</div>
-							<!-- end modal footer -->
-						</div>
-					</div>
-				</div>
-				<!-- end modal -->
-			</div>
-			<div class="col-12 p-0">
-				<div id="hist-chart-main" class="m-auto"></div>
-			</div>
-		</div>
-		<!-- end history -->
-	</div>
+    <main class="container-fluid d-flex h-view-full p-0">
+      <section class="row mx-auto my-4">
+        <div class="col-12 d-flex">
+          <button type="button" class="col-sm-3 col-md-2 offset-sm-1 btn btn-default-maua" id="hist-filter-menu" data-toggle="modal" data-target="#hist-filter-modal">
+            Filtro<i class="ml-2 fas fa-clock"></i>
+          </button>
 
-	<footer>
-		<%- include( '../partials/footer', { pageActive: 'history' } ) %>
-	</footer>
-</body>
+          <div class="modal fade" id="hist-filter-modal" tabindex="-1" role="dialog" aria-labelledby="hist-filter-modal-title" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="hist-filter-modal-title">Filtro do Gráfico</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+            
+                  <div class="modal-body">
+                    <div class="row justify-content-between">
+                      <div class="col-5">
+                        <label for="hist-filter-period" class="mb-1">Período:</label>
+                        <select class="form-control" id="hist-filter-period">
+                          <option>Hora</option>
+                          <option selected>Dia</option>
+                          <option>Semana</option>
+                          <option>Mês</option>
+                          <option>Ano</option>
+                        </select>
+                      </div>
+                      <div class="col-7">
+                        <label for="hist-filter-datetime" class="mb-1">Data de início:</label>
+                        <div class="row align-items-center">
+                          <div class="col-10 pr-0">
+                            <input type="text" id="hist-filter-datetime" class="form-control" readonly>
+                          </div>
+                          <div class="col-2 pl-1">
+                            <img id="hist-filter-datetime-icon" src="img/calendar.png">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 mt-2">
+                        <label for="hist-filter-parking" class="mb-1">Estacionamento:</label>
+                        <select class="form-control" id="hist-filter-parking"></select>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light-maua" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-dark-maua" id="hist-filter-trigger">Filtrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="col-12 p-0">
+          <div id="hist-chart-main" class="m-auto"></div>
+        </div>
+      </section>
+    </main>
+
+    <%- include( '../partials/scripts', { pageActive: 'history' } ) %>
+  </body>
 </html>

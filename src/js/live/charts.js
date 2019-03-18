@@ -2,105 +2,101 @@
 
 const Chart = ( chartElement ) => {
 
-    let chart;
-    let chartDataTable = {};
-    let chartOptions = {};
+  let chart;
+  let chartDataTable = {};
+  let chartOptions = {};
 
-    return {
+  return {
+    drawHourChart: ({ actions }) => {
+      const chartDataArray = [[ 'Minuto', 'Fluxo' ]];
 
-        drawHourChart: ( hourData ) => {
+      for ( let i = 0; i < actions.entrance.length; i++ ) {
+        chartDataArray.push([
+          actions.entrance[i].period,
+          actions.entrance[i].value - actions.exit[i].value
+        ]);
+      }
 
-            // 1. Add axes legend
-            let chartDataArray = [ [ 'Minuto', 'Fluxo' ] ];
+      chartDataTable = google.visualization.arrayToDataTable( chartDataArray );
 
-            // 2. Add chart data
-            for ( let i = 0; i < hourData.entrance.length; i++ ) {
-                chartDataArray.push( [ hourData.entrance[i].period,
-                    hourData.entrance[i].value - hourData.exit[i].value ] );
-            }
-
-            chartDataTable = google.visualization.arrayToDataTable( chartDataArray );
-
-            // 3. Set chart options
-            chartOptions = {
-                colors: [ '#004684' ],
-                hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#053061' } },
-                vAxis: { format: '#', gridline: { count: -1 },
-                    textStyle: { fontSize: 14, color: '#053061' } },
-                chartArea: { width: '75%', height: '80%' },
-                curveType: 'function',
-                pointSize: 7
-            };
-
-            // 4. Draw chart
-            chart = new google.visualization.LineChart( chartElement );
-            chart.draw( chartDataTable, chartOptions );
-
+      chartOptions = {
+        colors: ['#004684'],
+        hAxis: {
+          maxAlternation: 1,
+          textStyle: { fontSize: 12, color: '#053061' }
         },
-
-        drawDayChart: ( dayData ) => {
-
-            // 1. Add axes legend
-            let chartDataArray = [ [ 'Horário do dia', 'Fluxo' ] ];
-
-            // 2. Add chart data
-            for ( let i = 0; i < dayData.entrance.length; i++ ) {
-                chartDataArray.push( [ dayData.entrance[i].period,
-                    dayData.entrance[i].value - dayData.exit[i].value ] );
-            }
-
-            chartDataTable = google.visualization.arrayToDataTable( chartDataArray );
-
-            // 3. Set chart options
-            chartOptions = {
-                colors: [ '#274d60' ],
-                hAxis: { maxAlternation: 1, textStyle: { fontSize: 12, color: '#002536' } },
-                vAxis: { format: '#', gridline: { count: -1 },
-                textStyle: { fontSize: 14, color: '#002536' } },
-                chartArea: { width: '75%', height: '80%' },
-                curveType: 'function',
-                pointSize: 7
-            };
-
-            // 4. Draw chart
-            chart = new google.visualization.LineChart( chartElement );
-            chart.draw( chartDataTable, chartOptions );
-
+        vAxis: {
+          format: '#',
+          gridline: { count: -1 },
+          textStyle: { fontSize: 14, color: '#053061' }
         },
+        chartArea: { width: '75%', height: '80%' },
+        curveType: 'function',
+        pointSize: 7
+      };
 
-        drawAvailabilityChart: ( parkingId ) => ( parkingsData ) => {
+      chart = new google.visualization.LineChart( chartElement );
+      chart.draw( chartDataTable, chartOptions );
+    },
 
-            // 1. Add axes legend and lots data
-            let parking = parkingsData.parkings.find( ( { id } ) => id === parkingId );
-            let lotsOccupied = parking.lots.occupied;
-            let lotsAvailable = parking.lots.max - lotsOccupied;
+    drawDayChart: ({ actions }) => {
+      const chartDataArray = [[ 'Horário do dia', 'Fluxo' ]];
 
-            chartDataTable = new google.visualization.arrayToDataTable([
-                [ 'Estado', 'Número de Carros' ],
-                [ 'Disponíveis', lotsAvailable ], 
-                [ 'Ocupadas', lotsOccupied ]
-            ]);
+      for ( let i = 0; i < actions.entrance.length; i++ ) {
+        chartDataArray.push([
+          actions.entrance[i].period,
+          actions.entrance[i].value - actions.exit[i].value
+        ]);
+      }
 
-            // 2. Set chart options
-            chartOptions = {
-                colors: [ '#274d60', '#eda407' ],
-                chartArea: { top: '3%', width: '75%', height: '80%' },
-                pieHole: 0.25,
-                legend: { position: 'bottom', textStyle: { fontSize: 14, color: '#002536' } }
-            };
+      chartDataTable = google.visualization.arrayToDataTable( chartDataArray );
 
-            // 3. Draw chart
-            chart = new google.visualization.PieChart( chartElement );
-            chart.draw( chartDataTable, chartOptions );
-
+      chartOptions = {
+        colors: ['#274d60'],
+        hAxis: {
+          maxAlternation: 1,
+          textStyle: { fontSize: 12, color: '#002536' }
         },
+        vAxis: {
+          format: '#',
+          gridline: { count: -1 },
+          textStyle: { fontSize: 14, color: '#002536' }
+        },
+        chartArea: { width: '75%', height: '80%' },
+        curveType: 'function',
+        pointSize: 7
+      };
 
-        redrawChart: () => {
+      chart = new google.visualization.LineChart( chartElement );
+      chart.draw( chartDataTable, chartOptions );
+    },
 
-            chart.draw( chartDataTable, chartOptions );
+    drawAvailabilityChart: ( parkingId ) => ({ parkings }) => {
+      const parking = parkings.find( ({ id }) => id === parkingId );
 
+      chartDataTable = new google.visualization.arrayToDataTable([
+        [ 'Estado', 'Número de Carros' ],
+        [ 'Disponíveis', parking.maxLots - parking.occupiedLots ],
+        [ 'Ocupadas', parking.occupiedLots ]
+      ]);
+
+      chartOptions = {
+        colors: [ '#274d60', '#eda407' ],
+        chartArea: { top: '3%', width: '75%', height: '80%' },
+        pieHole: 0.25,
+        legend: {
+          position: 'bottom',
+          textStyle: { fontSize: 14, color: '#002536' }
         }
+      };
 
+      chart = new google.visualization.PieChart( chartElement );
+      chart.draw( chartDataTable, chartOptions );
+    },
+
+    redrawChart: () => {
+      chart.draw( chartDataTable, chartOptions );
     }
+  };
 
 };

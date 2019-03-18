@@ -1,90 +1,110 @@
 body {
-    color: #002536;
+  color: #002536;
 }
+
 ul li a:hover {
-	text-decoration: none;
-	color: #eda407!important;
-	transition: color .3s;
+  text-decoration: none;
+  color: #eda407!important;
+  transition: color .3s;
 }
+
 .navbar-dark .navbar-toggler {
-    border-color: #b57500
+  border-color: #b57500
 }
+
 .form-control {
-    color: #002536;
-    border: 1px solid #002536;
+  color: #002536;
+  border: 1px solid #002536;
 }
+
 .form-control:disabled, .form-control[readonly] {
-    background-color: #ffffff;
-    opacity: 1;
+  background-color: #ffffff;
+  opacity: 1;
 }
+
 .h-view-full {
-    height: calc(100vh - 100px);
+  height: calc(100vh - 100px);
 }
+
 .bg-dark-maua {
-	background-color: #002536;
+  background-color: #002536;
 }
+
 .btn-active {
-	border-bottom: .5px solid rgb(237, 164, 7);
+  border-bottom: .5px solid rgb(237, 164, 7);
 }
+
 .btn-light-maua {
-    color: #002536;
-    background-color: #ffffff;
-    border-color: #002536;
+  color: #002536;
+  background-color: #ffffff;
+  border-color: #002536;
 }
+
 .btn-dark-maua {
-    color: #ffffff;
-    background-color: #002536;
+  color: #ffffff;
+  background-color: #002536;
 }
+
 .btn-default-maua {
-    color: #274d60;
-    background-color: #ffffff;
-    border-color: #002536;
+  color: #274d60;
+  background-color: #ffffff;
+  border-color: #002536;
 }
+
 .btn-default-maua:hover {
-    color: #ffffff;
-    background-color: #274d60;
-    border-color: #ffffff;
-    transition: all .3s!important;
+  color: #ffffff;
+  background-color: #274d60;
+  border-color: #ffffff;
+  transition: all .3s!important;
 }
+
 .btn-default-maua:not(:disabled):not(.disabled).active,
 .btn-default-maua:not(:disabled):not(.disabled):active {
-    color: #ffffff;
-    background-color: #274d60;
+  color: #ffffff;
+  background-color: #274d60;
 }
+
 #hist-chart-main {
+  width: 100vw;
+  height: 80vh;
+}
+
+@media (max-width: 767.98px) {
+  #live-chart-main {
     width: 100vw;
     height: 80vh;
+  }
+
+  #live-chart-availability {
+    width: 93vw;
+    height: 40vh;
+  }
 }
-@media (max-width: 767.98px) {
-    #live-chart-main {
-        width: 100vw;
-        height: 80vh;
-    }
-    #live-chart-availability {
-        width: 93vw;
-        height: 40vh;
-    }
-}
+
 @media (max-width: 991.98px) {
-    #all-nav-logo {
-        height: 50px;
-    }
-    #live-chart-main {
-        width: 100vw;
-        height: 80vh;
-    }
-    #live-chart-availability {
-        width: 93vw;
-        height: 45vh;
-    }
+  #all-nav-logo {
+    height: 50px;
+  }
+
+  #live-chart-main {
+    width: 100vw;
+    height: 80vh;
+  }
+
+  #live-chart-availability {
+    width: 93vw;
+    height: 45vh;
+  }
 }
+
 @media (min-width: 992px) {
-    #live-chart-main {
-        width: 75vw;
-        height: 80vh;
-    }
-    #live-chart-availability {
-        width: 23vw;
-        height: 45vh;
-    }
+  #live-chart-main {
+    width: 75vw;
+    height: 80vh;
+  }
+
+  #live-chart-availability {
+    width: 23vw;
+    height: 45vh;
+  }
 }

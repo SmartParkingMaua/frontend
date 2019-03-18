@@ -2,151 +2,181 @@
 
 (() => {
 
-    const defaultParkingId = 0; // Campus
-    const defaultPeriod = 'Dia';
-    const refreshTimeout = 30000;
-    const request = new Request();
-    const mainChart = Chart( document.querySelector( '#live-chart-main' ) );
-    const availabilityChart = Chart( document.querySelector( '#live-chart-availability' ) );
-    const parkingSelector = document.querySelector( '#live-filter-parking' );
-    const periodSelector = document.querySelectorAll( 'input[name=live-filter-period]' );
+  const elements = {
+    parking: document.querySelector('#live-filter-parking'),
+    periods: document.querySelectorAll('input[name=live-filter-period]'),
+    mainChart: document.querySelector('#live-chart-main'),
+    availabilityChart: document.querySelector('#live-chart-availability'),
+    totalEntrance: document.querySelector('#live-total-entrance'),
+    totalExit: document.querySelector('#live-total-exit')
+  };
 
-    let parkingsList = [];
-    let intervalId;
+  const defaults = {
+    parkingId: 0, // Campus
+    period: 'Dia',
+    refreshTimeout: 30000
+  };
 
-    // -----Starting point----- //
-    google.charts.load( 'current', { 'packages': ['corechart'], 'language': 'pt' } );
+  const charts = {
+    main: Chart( elements.mainChart ),
+    availability: Chart( elements.availabilityChart )
+  };
 
-    google.charts.setOnLoadCallback( () => request.getParkings( initialSetup ) );
+  const request = new Request();
+  
+  let parkingsList = [];
+  let intervalId;
 
-    const initialSetup = ( parkingsData ) => {
-        // 1. Fill parkings list and select field
-        parkingsList = parkingsData.parkings;
+  // -----Starting point----- //
+  google.charts.load(
+    'current',
+    {
+      'packages': ['corechart'],
+      'language': 'pt'
+    }
+  );
 
-        let parkingsNames = parkingsList.map( ( { name } ) => name );
+  google.charts.setOnLoadCallback(() => request.getParkings( initialSetup ));
 
-        parkingsNames.forEach( name => {
-            let optionElement = document.createElement( 'option' );
-            optionElement.text = name;
-            parkingSelector.add( optionElement );
-        });
+  const initialSetup = ({ parkings }) => {
+    let requestStatus;
 
-        // 2. Request data and set data request interval
-        let timestamp = new Date().getTime();
-        let requestStatus = requestData( defaultPeriod, defaultParkingId, timestamp );
+    parkingsList = parkings;
 
-        if ( !requestStatus ) {
-            return alert( 'Período inválido!' );
+    parkingsList.map(({ name }) => {
+      let optionElement = document.createElement('option');
+
+      optionElement.text = name;
+      elements.parking.add( optionElement );
+    });
+
+    requestStatus = requestData(
+        defaults.period,
+        defaults.parkingId,
+        new Date().getTime()
+      );
+
+    if ( !requestStatus ) {
+      return alert('Período inválido!');
+    }
+
+    intervalId = setInterval(() => {
+      requestData(
+        defaults.period,
+        defaults.parkingId,
+        new Date().getTime()
+      );
+    }, defaults.refreshTimeout );
+
+    elements.parking.addEventListener( 'change', configureAndRequestData );
+    elements.periods.forEach( p =>
+      p.parentNode.addEventListener( 'click', configureAndRequestData )
+    );
+
+    // Make charts responsive
+    window.onresize = () => {
+      charts.main.redrawChart();
+      charts.availability.redrawChart();
+    };
+  }
+
+  const requestData = ( period, parkingId, timestamp ) => {
+    let status = true;
+
+    switch ( period.toUpperCase() ) {
+      case 'HORA':
+        request.getParkings(
+          charts.availability.drawAvailabilityChart( parkingId )
+        );
+        request.getDataByHour(
+          parkingId,
+          timestamp,
+          charts.main.drawHourChart
+        );
+        request.getDataByHour( parkingId, timestamp, showTotalCars );
+        break;
+
+      case 'DIA':
+        request.getParkings(
+          charts.availability.drawAvailabilityChart( parkingId )
+        );
+        request.getDataByDay(
+          parkingId,
+          timestamp,
+          charts.main.drawDayChart
+        );
+        request.getDataByDay(
+          parkingId,
+          timestamp,
+          showTotalCars
+        );
+        break;
+
+      default:
+        status = false;
+        break;
+    }
+
+    return status;
+  }
+
+  const configureAndRequestData = ( event ) => {
+    let period;
+    let parkingId = getParkingId( elements.parking.value );
+    let requestStatus;
+
+    // Since its a general purposes function to handle requests from
+    // different sources in the page, when changing the period selector
+    // it doesn't update its innerText value as fast as the event is
+    // triggered. It leads to a misbehavior where the selector gets the
+    // previous innerText value in it, making the request in the wrong route
+    if ( event.target.tagName === 'LABEL' ) {
+      period = event.target.innerText;
+    } else {
+      elements.periods.forEach( p => {
+        if ( p.checked ) {
+          period = p.parentNode.innerText;
+          return;
         }
-
-        intervalId = setInterval( () => {
-            let timestamp = new Date().getTime();
-            
-            requestData( defaultPeriod, defaultParkingId, timestamp );
-        }, refreshTimeout );
-
-        // 3. Add events
-        periodSelector.forEach( p => p.parentNode.addEventListener( 'click', configureRequest ) );
-
-        parkingSelector.addEventListener( 'change', configureRequest );
-
-        // 4. Make the chart responsive
-        window.onresize = () => {
-            mainChart.redrawChart();
-            availabilityChart.redrawChart();
-        };
-
+      });
     }
 
-    const requestData = ( period, parkingId, timestamp ) => {
-
-        let status = true;
-
-        switch ( period.toUpperCase() ) {
-            case 'HORA':
-                request.getParkings( availabilityChart.drawAvailabilityChart( parkingId ) );
-                request.getDataByHour( parkingId, timestamp, mainChart.drawHourChart );
-                request.getDataByHour( parkingId, timestamp, showTotalCars );
-                break;
-            case 'DIA':
-                request.getParkings( availabilityChart.drawAvailabilityChart( parkingId ) );
-                request.getDataByDay( parkingId, timestamp, mainChart.drawDayChart );
-                request.getDataByDay( parkingId, timestamp, showTotalCars );
-                break;
-            default:
-                status = false;
-                break;
-        }
-
-        return status;
-
+    if ( parkingId === -1 ) {
+      return alert('Estacionamento inválido!');
     }
 
-    const configureRequest = ( event ) => {
+    requestStatus = requestData( period, parkingId, new Date().getTime() );
 
-        // 1. Get period filter
-        let period;
-
-        if ( event.target.tagName === 'LABEL' ) {
-            period = event.target.innerText;
-        }
-        else {
-            periodSelector.forEach( p => {
-                if ( p.checked ) {
-                    period = p.parentNode.innerText;
-                    return;
-                }
-            });
-        }
-
-        // 2. Get parking filter
-        let parkingId = getParkingId( parkingSelector.value );
-
-        if ( parkingId === -1 )
-            return alert( 'Estacionamento inválido!' );
-
-        // 3. Request data
-        let timestamp = new Date().getTime();
-        let requestStatus = requestData( period, parkingId, timestamp );
-
-        if ( !requestStatus )
-            return alert( 'Período inválido!' );
-
-        // 4. Clear previous interval and set data request interval
-        clearInterval( intervalId );
-
-        intervalId = setInterval( () => {
-            let timestamp = new Date().getTime();
-
-            requestData( period, parkingId, timestamp );
-        }, refreshTimeout );
-
+    if ( !requestStatus ) {
+      return alert('Período inválido!');
     }
 
-    const getParkingId = ( parkingName ) => {
+    // It's necessary to clean previous interval to avoid multiple requests
+    clearInterval( intervalId );
 
-        let parking = parkingsList.find( p => p.name === parkingName );
+    intervalId = setInterval(() => {
+      requestData( period, parkingId, new Date().getTime() );
+    }, defaults.refreshTimeout );
+  }
 
-        if ( parking === undefined )
-            return -1;
+  const getParkingId = ( parkingName ) => {
+    const parking = parkingsList.find( p => p.name === parkingName );
 
-        return parking.id;
-
+    if ( parking === undefined ) {
+      return -1;
     }
 
-    const showTotalCars = ( dayData ) => {
+    return parking.id;
+  }
 
-        let totalEntranceElement = document.querySelector( '#live-total-entrance' );
-        let totalExitElement = document.querySelector( '#live-total-exit' );
-        let totalEntrance = 0;
-        let totalExit = 0;
+  const showTotalCars = ({ actions }) => {
+    const totalEntrance =
+      actions.entrance.reduce(( acc, cur ) => acc + cur.value, 0 );
+    const totalExit =
+      actions.exit.reduce(( acc, cur ) => acc + cur.value, 0 );
 
-        dayData.entrance.forEach( d => totalEntrance += d.value );
-        dayData.exit.forEach( d => totalExit += d.value );
-
-        totalEntranceElement.innerText = totalEntrance;
-        totalExitElement.innerText = totalExit;
-
-    }
+    elements.totalEntrance.innerText = totalEntrance;
+    elements.totalExit.innerText = totalExit;
+  }
 
 })();
