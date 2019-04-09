@@ -73,10 +73,11 @@ const Chart = ( chartElement ) => {
 
     drawAvailabilityChart: ( parkingId ) => ({ parkings }) => {
       const parking = parkings.find( ({ id }) => id === parkingId );
+      const vagasDisponivel = parking.maxLots - parking.occupiedLots;
 
       chartDataTable = new google.visualization.arrayToDataTable([
         [ 'Estado', 'Número de Carros' ],
-        [ 'Disponíveis', parking.maxLots - parking.occupiedLots ],
+        [ 'Disponíveis', vagasDisponivel < 0 ? 0 : vagasDisponivel ],
         [ 'Ocupadas', parking.occupiedLots ]
       ]);
 
