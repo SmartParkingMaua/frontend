@@ -9,7 +9,9 @@
     pickTime: false,
     initialDate: new Date(),
     startView: 'month',
-    minView: 'month'
+    minView: 'month',
+    startDate: new Date('2018-01-01 00:00:00.000'),
+    endDate: new Date()
   });
 
   // Add event to show datepicker element when calendar icon is clicked
@@ -38,7 +40,9 @@
             new Date().getHours()
           ),
         startView: 'day',
-        minView: 'day'
+        minView: 'day',
+        startDate: new Date('2018-01-01 00:00:00.000'),
+        endDate: new Date()
       });
     } else if ( selectedPeriodName === 'Ano' ) {
       $('#hist-filter-datetime').fdatepicker({
@@ -47,7 +51,9 @@
         pickTime: false,
         initialDate: new Date(),
         startView: 'year',
-        minView: 'year'
+        minView: 'year',
+        startDate: new Date('2018-01-01 00:00:00.000'),
+        endDate: new Date()
       });
     } else {
       $('#hist-filter-datetime').fdatepicker({
@@ -56,7 +62,9 @@
         pickTime: false,
         initialDate: new Date(),
         startView: 'month',
-        minView: 'month'
+        minView: 'month',
+        startDate: new Date('2018-01-01 00:00:00.000'),
+        endDate: new Date()
       });
     }
   });
