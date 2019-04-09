@@ -40,6 +40,7 @@
     "uglifycss": "0.0.29"
   },
   "dependencies": {
+    "@babel/cli": "^7.4.3",
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
