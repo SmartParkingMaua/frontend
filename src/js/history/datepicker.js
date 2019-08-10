@@ -2,16 +2,20 @@
 
 (() => {
 
+  const commonProps = {
+    language: 'pt-br',
+    startDate: new Date('2018-01-01 00:00:00.000'),
+    endDate: new Date()
+  }
+
   // Initialize datepicker element
   $('#hist-filter-datetime').fdatepicker({
+    ...commonProps,
     format: 'dd/mm/yyyy',
-    language: 'pt-br',
     pickTime: false,
     initialDate: new Date(),
     startView: 'month',
-    minView: 'month',
-    startDate: new Date('2018-01-01 00:00:00.000'),
-    endDate: new Date()
+    minView: 'month'
   });
 
   // Add event to show datepicker element when calendar icon is clicked
@@ -27,44 +31,35 @@
 
     if ( selectedPeriodName === 'Hora' ) {
       $('#hist-filter-datetime').fdatepicker({
+        ...commonProps,
         format: 'dd/mm/yyyy hh:ii',
-        language: 'pt-br',
         pickTime: true,
-        // Here's necessary to specify the date like that so we can get
-        // an hour with no minutes, like this 18:00. Otherwise, we would
-        // get something like 18:33, which would mess up our hour picker
-        initialDate: new Date(
-            new Date().getFullYear(),
-            new Date().getMonth(),
-            new Date().getDate(),
-            new Date().getHours()
+        initialDate: new Date(        // Here's necessary to specify the date
+            new Date().getFullYear(), // like that so we can get an hour with
+            new Date().getMonth(),    // no minutes, like this 18:00. Otherwise,
+            new Date().getDate(),     // we would get something like 18:33,
+            new Date().getHours()     // which would mess up our hour picker
           ),
         startView: 'day',
         minView: 'day',
-        startDate: new Date('2018-01-01 00:00:00.000'),
-        endDate: new Date()
       });
     } else if ( selectedPeriodName === 'Ano' ) {
       $('#hist-filter-datetime').fdatepicker({
+        ...commonProps,
         format: 'mm/yyyy',
-        language: 'pt-br',
         pickTime: false,
         initialDate: new Date(),
         startView: 'year',
-        minView: 'year',
-        startDate: new Date('2018-01-01 00:00:00.000'),
-        endDate: new Date()
+        minView: 'year'
       });
     } else {
       $('#hist-filter-datetime').fdatepicker({
+        ...commonProps,
         format: 'dd/mm/yyyy',
-        language: 'pt-br',
         pickTime: false,
         initialDate: new Date(),
         startView: 'month',
-        minView: 'month',
-        startDate: new Date('2018-01-01 00:00:00.000'),
-        endDate: new Date()
+        minView: 'month'
       });
     }
   });
